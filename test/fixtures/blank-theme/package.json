@@ -1,0 +1,19 @@
+{
+    "name": "blank-theme",
+    "description": "Blank ghost theme.",
+    "version": "1.0.0",
+    "keywords": ["blank","ghost-theme","theme"],
+    "engines": {
+        "ghost": ">=1.2.0"
+    },
+    "license": "SEE LICENSE IN LICENSE.",
+    "author": {
+        "email": "dev@quenk.com"
+    },
+    "config": {
+        "posts_per_page": 25
+    },
+    "dependencies": {
+        "ghost-cli": "latest"
+    }
+}

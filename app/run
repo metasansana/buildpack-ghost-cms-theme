@@ -1,0 +1,63 @@
+#!/bin/bash
+
+ghost_install() {
+
+  pushd www-ghost
+
+  ghost install \
+  --no-prompt \
+  --no-stack \
+  --no-start \
+  --no-setup-mysql \
+  --no-setup-nginx \
+  --no-setup-systemd \
+  --no-setup-linux-user \
+  --port $PORT \
+  --dbhost $DB_HOST \
+  --dbuser $DB_USER \
+  --dbpass $DB_PASS \
+  --dbname $DB_NAME \
+  --url $URL
+
+  popd
+
+}
+
+write_extra_configs() {
+
+  local host=${HOST:-'0.0.0.0'}
+  local port=${DB_PORT:-3306}
+
+  pushd www-ghost
+
+  ghost config 'server.host' "$host"
+  ghost config 'database.connection.port' "$port"
+
+  popd
+
+}
+
+copy_theme() {
+
+  mv /tmp/app-theme www-ghost/content/themes
+
+}
+
+start_ghost() {
+
+  cd www-ghost
+
+  node current/index.js
+
+}
+
+main () {
+
+  ghost_install
+  write_extra_configs
+  copy_theme
+  start_ghost
+
+}
+
+main

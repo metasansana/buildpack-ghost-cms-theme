@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+
+## Configure environment
+
+set -o errexit    # always exit on error
+set -o pipefail   # dont ignore exit codes when piping output
+
+## constants
+BUILD_DIR=${1:-}
+CACHE_DIR=${2:-}
+ENV_DIR=${3:-}
+TMP_THEME_DIR=/tmp/app-theme
+BUILD_PACK_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
+BUILD_PACK_APP_DIR=$BUILD_PACK_DIR/app
+PACKAGE_FILE=$BUILD_DIR/package.json
+
+## Load dependencies
+source /dev/stdin <<< "$(curl --silent --retry 5 --retry-max-time 15 \
+   'https://lang-common.s3.amazonaws.com/buildpack-stdlib/v7/stdlib.sh')"
+
+source $BUILD_PACK_DIR/lib/constants.sh
+source $BUILD_PACK_DIR/lib/package.sh
+
+## Make a copy of the theme before we mess things up.
+ghost_preserve_theme() {
+
+  puts_step "Preserving theme for use with ghost installation..."
+
+  mkdir -p $TMP_THEME_DIR
+
+  find $BUILD_DIR -maxdepth 1 -name 'assets' -exec cp -t $TMP_THEME_DIR {} \+
+
+  find $BUILD_DIR -maxdepth 1 -name 'partials' -exec cp -t $TMP_THEME_DIR {} \+
+
+  find $BUILD_DIR -maxdepth 1 -name '*.hbs' -exec cp -t $TMP_THEME_DIR {} \+
+
+  echo 'App theme folder contents: '
+
+  ls -la $TMP_THEME_DIR
+
+}
+
+## Install ghost-cli using the version the theme declares in the "engines" 
+## section defaulting to latest if not specified.
+ghost_install_cli() {
+  
+  puts_step 'Installing ghost-cli...'
+
+  npm install -g "ghost-cli@$(package_get_cli_version $PACKAGE_FILE)"
+
+}
+
+## ghost-cli install won't work in the buildpack environment so we have to
+## write runtime files to do the setup process. 
+ghost_write_runtime_files() {
+
+  local ghost_dir="$BUILD_DIR/$GHOST_WWW_DIR_NAME"
+
+  puts_step "Created ghost blog subfolder. Ghost will live in $ghost_dir."
+
+  mkdir -p $ghost_dir
+
+  cp -Rn $BUILD_PACK_APP_DIR/* $BUILD_DIR
+
+}
+
+ghost_main() {
+
+  ghost_preserve_theme
+  ghost_install_cli
+  ghost_write_runtime_files
+
+}
+
+ghost_main

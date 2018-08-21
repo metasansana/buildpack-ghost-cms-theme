@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+testBlankTemplateBuild() {
+
+  # copy template into /app.
+  # run herokuish buildpack build
+
+  rm -fR /app/*
+  cp -R /fixtures/blank-theme/. /app
+  /bin/herokuish buildpack build
+
+}
+
+source $(pwd)/test/shunit2

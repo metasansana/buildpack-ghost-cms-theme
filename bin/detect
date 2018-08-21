@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+#Usage:
+# detect BUILD_DIR
+
+### Configure environment
+
+set -o errexit    # always exit on error
+set -o pipefail   # dont ignore exit codes when piping output
+
+# constants
+BUILD_DIR=${1:-}
+BUILD_PACK_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
+PACKAGE_FILE=$BUILD_DIR/package.json
+
+### Load dependencies
+source /dev/stdin <<< "$(curl --silent --retry 5 --retry-max-time 15 \
+   'https://lang-common.s3.amazonaws.com/buildpack-stdlib/v7/stdlib.sh')"
+
+source $BUILD_PACK_DIR/lib/constants.sh
+source $BUILD_PACK_DIR/lib/package.sh
+
+if package_is_theme $PACKAGE_FILE; then
+
+  echo "Ghost CMS Theme"
+  exit 0
+
+else
+
+  exit 1
+
+fi
