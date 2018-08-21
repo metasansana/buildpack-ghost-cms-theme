@@ -34,6 +34,9 @@ be a valid Ghost CMS theme. During the build process the buildpack creates a
 You therefore should not have any files or directories named `www-ghost` in your
 project.
 
+In order for the buidpack to detect your app as a Ghost theme, you must
+have the "ghost-theme" string in your keywords array.
+
 ### Dokku
 
 Before pushing your app, you need to specify a few environment variables
