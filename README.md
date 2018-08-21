@@ -42,12 +42,12 @@ the MySQL installation.
 
 #### Environment Variables
 
-DB_HOST - The host address of the MySQL installation (required).
-DB_PORT - The port to connect to MySQL with.
-DB_NAME - The name of the database to use (required).
-DB_USER - The username of the database user (required).
-DB_PASS - The password of the database user (required).
-URL     - The url Ghost will use in your blog (required).
+* DB_HOST - The host address of the MySQL installation (required).
+* DB_PORT - The port to connect to MySQL with.
+* DB_NAME - The name of the database to use (required).
+* DB_USER - The username of the database user (required).
+* DB_PASS - The password of the database user (required).
+* URL     - The url Ghost will use in your blog (required).
 
 After configuring your environment variables, push your app and it should
 build. Give Ghost some time to complete the installation if this is the first
