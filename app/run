@@ -12,6 +12,7 @@ ghost_install() {
   --no-setup-nginx \
   --no-setup-systemd \
   --no-setup-linux-user \
+  --no-check-mem \
   --port $PORT \
   --dbhost $DB_HOST \
   --dbuser $DB_USER \
