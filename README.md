@@ -11,7 +11,7 @@ line is a git clonable URL to a buildpack you want to use.
 
 Example:
 ```sh
-https://github.com/heroku/heroku-buildpack-pack.git#v123
+https://github.com/heroku/heroku-buildpack-nodejs.git#v123
 https://github.com/metasansana/buildpack-ghost-cms-theme
 ```
 ## About This Buildpack
