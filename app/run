@@ -40,10 +40,6 @@ write_extra_configs() {
 
 copy_theme() {
 
-  echo "=== App theme contents. ==="
-  ls -la /tmp/app-theme
-  echo "=== Ghost installation. ==="
-  ls -la www-ghost
   mv /tmp/app-theme www-ghost/content/themes
 
 }
