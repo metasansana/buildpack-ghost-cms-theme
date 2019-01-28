@@ -27,8 +27,6 @@ install() {
 
   pushd www-ghost
 
-  cp -R ../www-ghost-additions/* .
-
   ghost install \
   --no-prompt \
   --no-stack \
@@ -44,6 +42,17 @@ install() {
   --dbpass $DB_PASS \
   --dbname $DB_NAME \
   --url $URL
+
+  if [ -e ../www-ghost-additions/config.production.json ]
+  then
+
+    ../www-ghost-additions/jq -s '.[0] + .[1]' config.production.json \
+      ../www-ghost-additions/config.production.json > \
+      ../www-ghost-additions/config.production.json
+
+  fi
+  
+  cp -R ../www-ghost-additions/* .
 
   popd
 
