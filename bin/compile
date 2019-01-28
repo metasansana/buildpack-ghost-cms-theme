@@ -51,9 +51,9 @@ ghost_install_cli() {
 ghost_write_runtime_files() {
 
   local ghost_dir="$BUILD_DIR/$GHOST_WWW_DIR_NAME"
-  local additions="$BUILD_DIR/$GHOST_ADDITIONS_NAME"
+  local additions_dir="$BUILD_DIR/$GHOST_ADDITIONS_NAME"
 
-  mkdir -p $ghost_dir
+  mkdir -p $ghost_dir $additions_dir
 
   puts_step "Created ghost blog folder. Ghost will live in $ghost_dir."
 
@@ -66,7 +66,7 @@ ghost_write_runtime_files() {
 
     puts_step "Copying config.production.json file.."
 
-    cp $TMP_THEME_DIR/config.production.json $additions
+    cp $TMP_THEME_DIR/config.production.json $additions_dir
 
   fi
 
@@ -77,13 +77,13 @@ ghost_write_runtime_files() {
 
     puts_step "Found adpaters folder. Copying..."
 
-    mkdir -p $additions/content/adapters
+    mkdir -p $additions_dir/content/adapters
 
-    cp -R $TMP_THEME_DIR/adapters/* $additions/content/adapters
+    cp -R $TMP_THEME_DIR/adapters/* $additions_dir/content/adapters
 
     puts_step "Contents of adapters folder:"
 
-    ls -la $additions/content/adapters
+    ls -la $additions_dir/content/adapters
 
   fi
 
