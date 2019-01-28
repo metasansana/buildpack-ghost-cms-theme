@@ -61,7 +61,7 @@ ghost_write_runtime_files() {
 
   puts_step "Checking for custom config file..."
 
-  cp $BUILD_DIR/vendor/jq $additions_dir
+  cp $BUILD_PACK_DIR/vendor/jq $additions_dir
 
   if [ -e $TMP_THEME_DIR/config.production.json ]
   then
