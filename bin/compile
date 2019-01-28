@@ -36,7 +36,7 @@ ghost_preserve_theme() {
 
   find $BUILD_DIR -maxdepth 1 -name '*.json' -exec cp -t $TMP_THEME_DIR {} \+
 
-  find $BUILD_DIR -maxdepth 1 -name 'adapters' -exec cp -t $TMP_THEME_DIR {} \+
+  find $BUILD_DIR -maxdepth 1 -name 'adapters' -exec cp -R -t $TMP_THEME_DIR {} \+
 
   echo 'App theme folder contents: '
 
