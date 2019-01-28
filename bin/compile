@@ -28,11 +28,7 @@ ghost_preserve_theme() {
 
   mkdir -p $TMP_THEME_DIR
 
-  find $BUILD_DIR -maxdepth 1 -name 'assets' -exec cp -Rt $TMP_THEME_DIR {} \+
-
-  find $BUILD_DIR -maxdepth 1 -name 'partials' -exec cp -Rt $TMP_THEME_DIR {} \+
-
-  find $BUILD_DIR -maxdepth 1 -name '*.hbs' -exec cp -t $TMP_THEME_DIR {} \+
+  find $BUILD_DIR -maxdepth 1 ! -name '.git' -exec cp -R -t $TMP_THEME_DIR {} \+
 
   echo 'App theme folder contents: '
 
@@ -69,7 +65,7 @@ ghost_write_runtime_files() {
 
     puts_step "Installing config.production.json file.."
 
-    cp $TMP_THEME_DIR $ghost_dir
+    cp $TMP_THEME_DIR/config.production.json $ghost_dir
 
   fi
 
