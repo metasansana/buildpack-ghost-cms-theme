@@ -51,7 +51,7 @@ ghost_install_cli() {
 ghost_write_runtime_files() {
 
   local ghost_dir="$BUILD_DIR/$GHOST_WWW_DIR_NAME"
-  local additions = "$BUILD_DIR/$GHOST_ADDITIONS_NAME"
+  local additions="$BUILD_DIR/$GHOST_ADDITIONS_NAME"
 
   mkdir -p $ghost_dir
 
