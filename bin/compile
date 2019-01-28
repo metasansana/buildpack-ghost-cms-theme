@@ -28,7 +28,7 @@ ghost_preserve_theme() {
 
   mkdir -p $TMP_THEME_DIR
 
-  find $BUILD_DIR -maxdepth 1 ! -name '.git' -exec cp -R -t $TMP_THEME_DIR {} \+
+  find $BUILD_DIR -maxdepth 1 ! -name '*.*' -exec cp -R -t $TMP_THEME_DIR {} \+
 
   echo 'App theme folder contents: '
 
