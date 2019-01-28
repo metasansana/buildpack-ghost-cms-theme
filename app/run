@@ -27,6 +27,8 @@ install() {
 
   pushd www-ghost
 
+  cp -R ../www-ghost-additions/* .
+
   ghost install \
   --no-prompt \
   --no-stack \
