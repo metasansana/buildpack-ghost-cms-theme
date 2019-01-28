@@ -12,12 +12,12 @@ line is a git clonable URL to a buildpack you want to use.
 Example:
 ```sh
 https://github.com/heroku/heroku-buildpack-nodejs.git#v123
-https://github.com/metasansana/buildpack-ghost-cms-theme
+https://github.com/metasansana/buildpack-ghost-cms-theme#v0.2.0
 ```
 ## About This Buildpack
 
-This buildpack will build a Ghost CMS blog given a repo that is a ghost-theme.
-It use the `ghost-cli` tool without all the environment checking stuff to
+This buildpack will build a Ghost CMS blog from a repo that is a ghost-theme.
+It uses the `ghost-cli` tool without all the environment checking stuff to
 make deployment easier on platforms like dokku.
 
 This buildpack depends on and MUST be used with the official Node.js buildpack
@@ -35,7 +35,7 @@ You therefore should not have any files or directories named `www-ghost` in your
 project.
 
 In order for the buidpack to detect your app as a Ghost theme, you must
-have the "ghost-theme" string in your keywords array.
+have the "ghost-theme" string in your keywords array in the `package.json`.
 
 ### Dokku
 

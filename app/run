@@ -1,6 +1,29 @@
 #!/bin/bash
 
-ghost_install() {
+isset() {
+
+  if [ -z $1 ]
+  then
+
+    echo "Environment variable $2 must be set !";
+    exit 1;
+
+  fi
+
+}
+
+check_conf() {
+
+  isset $PORT "PORT" 
+  isset $DB_HOST "DB_HOST"
+  isset $DB_USER "DB_USER"
+  isset $DB_PASS "DB_PASS"
+  isset $DB_NAME "DB_NAME"
+  isset $URL "URL"
+
+}
+
+install() {
 
   pushd www-ghost
 
@@ -53,8 +76,9 @@ start_ghost() {
 }
 
 main () {
-
-  ghost_install
+  
+  check_conf
+  install
   write_extra_configs
   copy_theme
   start_ghost

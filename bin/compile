@@ -56,11 +56,39 @@ ghost_write_runtime_files() {
 
   local ghost_dir="$BUILD_DIR/$GHOST_WWW_DIR_NAME"
 
-  puts_step "Created ghost blog subfolder. Ghost will live in $ghost_dir."
-
   mkdir -p $ghost_dir
 
+  puts_step "Created ghost blog folder. Ghost will live in $ghost_dir."
+
   cp -Rn $BUILD_PACK_APP_DIR/* $BUILD_DIR
+
+  puts_step "Checking for custom config file..."
+
+  if [ -e $TMP_THEME_DIR/config.production.json ]
+  then
+
+    puts_step "Installing config.production.json file.."
+
+    cp $TMP_THEME_DIR $ghost_dir
+
+  fi
+
+  puts_step "Checking for custom adapters..."
+
+  if [ -d $TMP_THEME_DIR/adapters ]
+  then
+
+    puts_step "Found adpaters folder. Copying..."
+
+    mkdir -p $ghost_dir/content/adapters
+
+    cp -R $TMP_THEME_DIR/adapters/* $ghost_dir/content/adapters
+
+    puts_step "Contents of adapters folder:"
+
+    ls -la $TMP_THEME_DIR/adapters
+
+  fi
 
 }
 
