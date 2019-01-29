@@ -99,7 +99,7 @@ ghost_write_runtime_files() {
 
   puts_step "Checking for custom configuration..."
 
-  if [ -d $TMP_THEME_DIR/config.production.json ]
+  if [ -e $TMP_THEME_DIR/config.production.json ]
   then
 
     puts_step "Found config file. Copying..."
