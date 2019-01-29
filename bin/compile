@@ -56,14 +56,10 @@ ghost_install_cli() {
 
 npm_install() {
 
-  if [ -e $1/$2/package.json ]
+  if [ -e package.json ]
   then
 
-    pushd $1/$2
-
     npm install
-
-    popd
 
   fi
 
@@ -111,7 +107,7 @@ ghost_write_runtime_files() {
     puts_step "Installing any dependencies"
 
     find $additions_dir/content -type d \
-      -exec bash -c 'npm_install $additions_dir/content "{}"' \+
+      -execdir bash -c 'npm_install "{}"' \+
 
     puts_step "Contents of content folder in $additions_dir:"
 
