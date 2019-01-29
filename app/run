@@ -54,9 +54,7 @@ install() {
 
     local conf=$($JQ -s add ${AUTO_CONFIG} ${CUSTOM_CONFIG})
 
-    echo "Final configuration: $conf"
-
-    echo $conf > foo.json
+    echo $conf > $AUTO_CONFIG
 
   fi
   
