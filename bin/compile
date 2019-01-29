@@ -54,6 +54,21 @@ ghost_install_cli() {
 
 }
 
+npm_install() {
+
+  if [ -e $1/package.json ]
+  then
+
+    pushd $1
+
+    npm install
+
+    popd
+
+  fi
+
+}
+
 ## ghost-cli install won't work in the buildpack environment so we have to
 ## write runtime files in a temporary location and continue at runtime.
 ghost_write_runtime_files() {
@@ -92,6 +107,10 @@ ghost_write_runtime_files() {
     puts_step "Found custom content. Copying to $additions_dir..."
 
     cp -R $TMP_THEME_DIR/content $additions_dir
+
+    puts_step "Installing any dependencies"
+
+    find $additions_dir/content -type d -exec npm_install $additions_dir/content/{} \+
 
     puts_step "Contents of content folder in $additions_dir:"
 
