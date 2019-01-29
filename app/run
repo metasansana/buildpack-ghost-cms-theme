@@ -56,8 +56,6 @@ install() {
 
     echo "Final configuration: $conf"
 
-    cat $conf > $AUTO_CONFIG
-
   fi
   
   if [ -d $ADDITIONS_DIR_CONTENT ]
