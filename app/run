@@ -1,5 +1,11 @@
 #!/bin/bash
 
+JQ=../www-ghost-additions/jq 
+ADDITIONS_DIR=../www-ghost-additions
+ADDITIONS_DIR_CONTENT=$ADDITIONS_DIR/content
+CUSTOM_CONFIG=$ADDITIONS_DIR/config.production.json 
+AUTO_CONFIG=config.production.json
+
 isset() {
 
   if [ -z $1 ]
@@ -46,16 +52,18 @@ install() {
   if [ -e ../www-ghost-additions/config.production.json ]
   then
 
-    ../www-ghost-additions/jq -s add config.production.json \
-      ../www-ghost-additions/config.production.json > \
-      config.production.json
+    local $conf=$($JQ -s add $AUTO_CONFIG $CUSTOM_CONFIG)
+
+    echo "Final configuration: $conf"
+
+    cat $conf > $AUTO_CONFIG
 
   fi
   
-  if [ -d ../www-ghost-additions/adapters ]
+  if [ -d $ADDITIONS_DIR_CONTENT ]
   then
  
-    mv ../www-ghost-additions/adapters content
+    cp -R $ADDITIONS_DIR_CONTENT/* content
 
   fi
 

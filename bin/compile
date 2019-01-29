@@ -55,7 +55,7 @@ ghost_install_cli() {
 }
 
 ## ghost-cli install won't work in the buildpack environment so we have to
-## write runtime files to do the setup process. 
+## write runtime files in a temporary location and continue at runtime.
 ghost_write_runtime_files() {
 
   local ghost_dir="$BUILD_DIR/$GHOST_WWW_DIR_NAME"
@@ -63,52 +63,45 @@ ghost_write_runtime_files() {
 
   mkdir -p $ghost_dir $additions_dir
 
-  puts_step "Created ghost blog folder. Ghost will live in $ghost_dir."
+  puts_step "Created ghost blog folder. Ghost will run in $ghost_dir."
+
+  puts_step "Copying app files to $BUILD_DIR..."
 
   cp -Rn $BUILD_PACK_APP_DIR/* $BUILD_DIR
 
-  puts_step "Checking for custom config file..."
+  puts_step "Adding jq for runtime use..."
 
   cp $BUILD_PACK_DIR/vendor/jq $additions_dir
+
+  puts_step "Checking for custom config file..."
 
   if [ -e $TMP_THEME_DIR/config.production.json ]
   then
 
-    puts_step "Copying config.production.json file.."
+    puts_step "Copying config.production.json file to $additions_dir..."
 
     cp $TMP_THEME_DIR/config.production.json $additions_dir
 
   fi
 
-  puts_step "Checking for custom adapters..."
+  puts_step "Checking for custom content folder..."
 
-  if [ -d $TMP_THEME_DIR/adapters ]
+  if [ -d $TMP_THEME_DIR/content ]
   then
 
-    puts_step "Found adpaters folder. Copying..."
+    puts_step "Found custom content. Copying to $additions_dir..."
 
-    mkdir -p $additions_dir/adapters
+    cp -R $TMP_THEME_DIR/content $additions_dir
 
-    cp -R $TMP_THEME_DIR/adapters/* $additions_dir/adapters
+    puts_step "Contents of content folder in $additions_dir:"
 
-    puts_step "Contents of adapters folder:"
-
-    ls -la $additions_dir/adapters
+    ls -la $additions_dir/content
 
   fi
 
-  puts_step "Checking for custom configuration..."
+  puts_step "Final contents of $additions_dir:"
 
-  if [ -e $TMP_THEME_DIR/config.production.json ]
-  then
-
-    puts_step "Found config file. Copying..."
-
-    cp $TMP_THEME_DIR/config.production.json $additions_dir/config.production.json 
-
-    ls -la $additions_dir
-
-  fi 
+  ls -la $additions_dir
 
 }
 
