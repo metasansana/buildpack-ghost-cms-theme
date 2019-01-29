@@ -52,7 +52,7 @@ install() {
   if [ -e ../www-ghost-additions/config.production.json ]
   then
 
-    local $conf=$($JQ -s add $AUTO_CONFIG $CUSTOM_CONFIG)
+    local conf=$($JQ -s add $AUTO_CONFIG $CUSTOM_CONFIG)
 
     echo "Final configuration: $conf"
 
