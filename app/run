@@ -46,7 +46,7 @@ install() {
   if [ -e ../www-ghost-additions/config.production.json ]
   then
 
-    ../www-ghost-additions/jq -s '.[0] + .[1]' config.production.json \
+    ../www-ghost-additions/jq -s add config.production.json \
       ../www-ghost-additions/config.production.json > \
       config.production.json
 
