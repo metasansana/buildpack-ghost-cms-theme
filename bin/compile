@@ -56,10 +56,10 @@ ghost_install_cli() {
 
 npm_install() {
 
-  if [ -e $1/package.json ]
+  if [ -e $1/$2/package.json ]
   then
 
-    pushd $1
+    pushd $1/$2
 
     npm install
 
@@ -110,7 +110,7 @@ ghost_write_runtime_files() {
 
     puts_step "Installing any dependencies"
 
-    find $additions_dir/content -type d -exec npm_install $additions_dir/content/{} \+
+    find $additions_dir/content -type d -exec npm_install $additions_dir/content {} \+
 
     puts_step "Contents of content folder in $additions_dir:"
 
