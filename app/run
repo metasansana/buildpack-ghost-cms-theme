@@ -47,8 +47,7 @@ install() {
   then
 
     ../www-ghost-additions/jq -s add config.production.json \
-      ../www-ghost-additions/config.production.json > \
-      config.production.json
+      ../www-ghost-additions/config.production.json 
 
     rm -R ../www-ghost-additions/config.production.json
 
