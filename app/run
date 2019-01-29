@@ -47,13 +47,19 @@ install() {
   then
 
     ../www-ghost-additions/jq -s add config.production.json \
-      ../www-ghost-additions/config.production.json 
+      ../www-ghost-additions/config.production.json > \
+      config.production.json
 
     rm -R ../www-ghost-additions/config.production.json
 
   fi
   
-  cp -R ../www-ghost-additions/* .
+  if [ -d ../www-ghost-additions/adapters ]
+  then
+ 
+    cp -R ../www-ghost-additions/adapters content
+
+  fi
 
   popd
 
