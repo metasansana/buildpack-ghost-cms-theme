@@ -87,15 +87,28 @@ ghost_write_runtime_files() {
 
     puts_step "Found adpaters folder. Copying..."
 
-    mkdir -p $additions_dir/content/adapters
+    mkdir -p $additions_dir/adapters
 
-    cp -R $TMP_THEME_DIR/adapters/* $additions_dir/content/adapters
+    cp -R $TMP_THEME_DIR/adapters/* $additions_dir/adapters
 
     puts_step "Contents of adapters folder:"
 
-    ls -la $additions_dir/content/adapters
+    ls -la $additions_dir/adapters
 
   fi
+
+  puts_step "Checking for custom configuration..."
+
+  if [ -d $TMP_THEME_DIR/config.production.json ]
+  then
+
+    puts_step "Found config file. Copying..."
+
+    cp $TMP_THEME_DIR/config.production.json $additions_dir/config.production.json 
+
+    ls -la $additions_dir
+
+  fi 
 
 }
 
