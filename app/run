@@ -49,10 +49,10 @@ install() {
   --dbname $DB_NAME \
   --url $URL
 
-  if [ -e ../www-ghost-additions/config.production.json ]
+  if [ -e $CUSTOM_CONFIG ]
   then
 
-    local conf=$($JQ -s add $AUTO_CONFIG $CUSTOM_CONFIG)
+    local conf=$($JQ -s add ${AUTO_CONFIG} ${CUSTOM_CONFIG})
 
     echo "Final configuration: $conf"
 
