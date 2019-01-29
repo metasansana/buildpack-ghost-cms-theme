@@ -106,8 +106,7 @@ ghost_write_runtime_files() {
 
     puts_step "Installing any dependencies"
 
-    find $additions_dir/content -type d \
-      -execdir bash -c 'npm_install "{}"' \+
+    find $additions_dir/content -type d -execdir bash -c 'npm_install "{}"' \;
 
     puts_step "Contents of content folder in $additions_dir:"
 
