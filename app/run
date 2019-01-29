@@ -56,6 +56,8 @@ install() {
 
     echo "Final configuration: $conf"
 
+    echo $conf > foo.json
+
   fi
   
   if [ -d $ADDITIONS_DIR_CONTENT ]
