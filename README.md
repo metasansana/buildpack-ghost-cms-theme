@@ -37,6 +37,13 @@ project.
 In order for the buidpack to detect your app as a Ghost theme, you must
 have the "ghost-theme" string in your keywords array in the `package.json`.
 
+### Additions
+
+You can now include a custom `config.production.json` and `content`
+folder and they will be merged into the project.
+
+This is usefull if you want to do things like use a custom storage adapter.
+
 ### Dokku
 
 Before pushing your app, you need to specify a few environment variables
