@@ -43,6 +43,7 @@ install() {
   --no-setup-linux-user \
   --no-check-mem \
   --port $PORT \
+  --db mysql \
   --dbhost $DB_HOST \
   --dbuser $DB_USER \
   --dbpass $DB_PASS \
