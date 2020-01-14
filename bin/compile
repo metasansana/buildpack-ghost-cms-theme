@@ -36,6 +36,10 @@ ghost_preserve_theme() {
 
   find $BUILD_DIR -maxdepth 1 -name '*.json' -exec cp -t $TMP_THEME_DIR {} \+
 
+  find $BUILD_DIR -maxdepth 1 -name '*.html' -exec cp -t $TMP_THEME_DIR {} \+
+
+  find $BUILD_DIR -maxdepth 1 -name '*.txt' -exec cp -t $TMP_THEME_DIR {} \+
+
   find $BUILD_DIR -maxdepth 1 -name 'content' -exec cp -R -t $TMP_THEME_DIR {} \+
 
   echo 'App theme folder contents: '
